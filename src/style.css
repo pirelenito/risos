@@ -1,7 +1,13 @@
 body {
-  margin: 0 16;
   background: #1b2b34;
   font-family: 'Helvetica Neue';
+  width: 100%;
+  height: 100%;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
 }
 
 .post {

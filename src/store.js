@@ -3,13 +3,16 @@ import posts from './posts'
 
 const HIGHLIGHT_NEXT = 'HIGHLIGHT_NEXT'
 const HIGHLIGHT_PREVIOUS = 'HIGHLIGHT_PREVIOUS'
-const SELECTED_HIGHLIGHTED = 'SELECTED_HIGHLIGHTED'
-const CANCEL_SELECTION = 'CANCEL_SELECTION'
+const EXPAND = 'EXPAND'
+const COLLAPSE = 'COLLAPSE'
+const RESIZE_WINDOW = 'RESIZE_WINDOW'
 
 const initialState = {
   posts,
   highlightedOffset: 0,
-  selectedOffset: null,
+  expanded: false,
+  windowWidth: window.innerWidth,
+  windowHeight: window.innerHeight,
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -17,22 +20,32 @@ const rootReducer = (state = initialState, action) => {
     case HIGHLIGHT_NEXT:
       return {
         ...state,
-        highlightedOffset: Math.min(state.highlightedOffset + 1, state.posts.length - 1),
+        highlightedOffset: state.expanded
+          ? state.highlightedOffset
+          : Math.min(state.highlightedOffset + 1, state.posts.length - 1),
       }
     case HIGHLIGHT_PREVIOUS:
       return {
         ...state,
-        highlightedOffset: Math.max(state.highlightedOffset - 1, 0),
+        highlightedOffset: state.expanded
+          ? state.highlightedOffset
+          : Math.max(state.highlightedOffset - 1, 0),
       }
-    case SELECTED_HIGHLIGHTED:
+    case EXPAND:
       return {
         ...state,
-        selectedOffset: state.highlightedOffset,
+        expanded: true,
       }
-    case CANCEL_SELECTION:
+    case COLLAPSE:
       return {
         ...state,
-        selectedOffset: null,
+        expanded: false,
+      }
+    case RESIZE_WINDOW:
+      return {
+        ...state,
+        windowWidth: action.payload.width,
+        windowHeight: action.payload.height,
       }
     default:
       return state
@@ -47,11 +60,11 @@ export default {
     {
       highlightNext: () => ({ type: HIGHLIGHT_NEXT }),
       highlightPrevious: () => ({ type: HIGHLIGHT_PREVIOUS }),
-      selectHighlighted: () => ({ type: SELECTED_HIGHLIGHTED }),
-      cancelSelection: () => ({ type: CANCEL_SELECTION }),
+      selectHighlighted: () => ({ type: EXPAND }),
+      cancelSelection: () => ({ type: COLLAPSE }),
+      resizeWindow: dimensions => ({ type: RESIZE_WINDOW, payload: dimensions }),
     },
     store.dispatch
   ),
   getHighlighted: state => state.posts[state.highlightedOffset],
-  getSelected: state => state.selectedOffset !== null && state.posts[state.selectedOffset],
 }
