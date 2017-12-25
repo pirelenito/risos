@@ -8,5 +8,13 @@ export default store => {
     if (keyName === 'ArrowUp') {
       store.highlightPrevious()
     }
+
+    if (keyName === 'Enter' || keyName === ' ') {
+      store.selectHighlighted()
+    }
+
+    if (keyName === 'Escape') {
+      store.cancelSelection()
+    }
   })
 }

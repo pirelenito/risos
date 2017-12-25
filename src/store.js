@@ -3,10 +3,13 @@ import posts from './posts'
 
 const HIGHLIGHT_NEXT = 'HIGHLIGHT_NEXT'
 const HIGHLIGHT_PREVIOUS = 'HIGHLIGHT_PREVIOUS'
+const SELECTED_HIGHLIGHTED = 'SELECTED_HIGHLIGHTED'
+const CANCEL_SELECTION = 'CANCEL_SELECTION'
 
 const initialState = {
   posts,
   highlightedOffset: 0,
+  selectedOffset: null,
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -21,6 +24,16 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         highlightedOffset: Math.max(state.highlightedOffset - 1, 0),
       }
+    case SELECTED_HIGHLIGHTED:
+      return {
+        ...state,
+        selectedOffset: state.highlightedOffset,
+      }
+    case CANCEL_SELECTION:
+      return {
+        ...state,
+        selectedOffset: null,
+      }
     default:
       return state
   }
@@ -34,8 +47,11 @@ export default {
     {
       highlightNext: () => ({ type: HIGHLIGHT_NEXT }),
       highlightPrevious: () => ({ type: HIGHLIGHT_PREVIOUS }),
+      selectHighlighted: () => ({ type: SELECTED_HIGHLIGHTED }),
+      cancelSelection: () => ({ type: CANCEL_SELECTION }),
     },
     store.dispatch
   ),
   getHighlighted: state => state.posts[state.highlightedOffset],
+  getSelected: state => state.selectedOffset !== null && state.posts[state.selectedOffset],
 }
