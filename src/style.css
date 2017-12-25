@@ -1,16 +1,19 @@
 body {
-  margin: 0;
+  margin: 0 16;
   background: #1b2b34;
+  font-family: 'Helvetica Neue';
 }
 
 .post {
-  font-family: 'Helvetica Neue';
   color: #cdd3de;
   font-size: 21px;
   font-weight: 400;
   line-height: 1.58;
   text-rendering: optimizeLegibility;
   letter-spacing: -0.003em;
+}
+
+.post .content {
   max-width: 700px;
   margin: 0 auto;
 }
@@ -33,6 +36,7 @@ body {
 
 .post .titleLink {
   text-decoration: none;
+  text-align: center;
 }
 
 .post .content a {
