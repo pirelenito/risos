@@ -2,19 +2,26 @@ import React from 'react'
 import { Motion, spring } from 'react-motion'
 
 export default class extends React.Component {
-  componentDidUpdate(prevProps) {
-    if (!prevProps.expanded && this.props.expanded) {
-      this.element.focus()
+  focus() {
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId)
     }
+
+    // we can't try to focus if an animation is running
+    this.timeoutId = setTimeout(() => {
+      if (!this.props.expanded) return
+      this.element.focus()
+    }, 1000)
+  }
+
+  scrollToTop() {
+    this.element.scrollTo({ top: 0 })
   }
 
   render() {
     const { expanded, children, width, height, background } = this.props
     return (
-      <Motion
-        defaultStyle={{ left: expanded ? 0 : width + 20 }}
-        style={{ left: spring(expanded ? 0 : width + 20, { stiffness: 150, damping: 15 }) }}
-      >
+      <Motion style={{ left: spring(expanded ? 0 : width + 20) }}>
         {style => (
           <div
             tabIndex="0"

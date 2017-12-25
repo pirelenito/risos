@@ -5,39 +5,69 @@ import Post from './Post'
 import store from './store'
 import SlidingPane from './SlidingPane'
 
-const App = ({ posts, highlighted, expanded, windowWidth, windowHeight }) => (
-  <div
-    style={{
-      top: 0,
-      left: 0,
-      width: windowWidth,
-      height: windowHeight,
-      position: 'absolute',
-      overflow: 'hidden',
-    }}
-  >
-    <SlidingPane key="feed" background="#1B2B34" expanded width={windowWidth} height={windowHeight}>
-      {posts.map(post => (
-        <FeedCard
-          highlighted={post === highlighted}
-          key={post.date}
-          title={post.title}
-          intro={post.intro}
-          hero={post.hero}
-        />
-      ))}
-    </SlidingPane>
-    <SlidingPane
-      key="post"
-      background="#16232a"
-      expanded={expanded}
-      width={windowWidth}
-      height={windowHeight}
-    >
-      <Post url={highlighted.link} title={highlighted.title} content={highlighted.description} />
-    </SlidingPane>
-  </div>
-)
+class App extends React.Component {
+  componentDidUpdate(prevProps) {
+    if (prevProps.highlighted !== this.props.highlighted) {
+      this.postElement.scrollToTop()
+    }
+
+    if (!prevProps.expanded && this.props.expanded) {
+      this.postElement.focus()
+    }
+
+    if (prevProps.expanded && !this.props.expanded) {
+      this.feedElement.focus()
+    }
+  }
+
+  render() {
+    const { posts, highlighted, expanded, windowWidth, windowHeight } = this.props
+
+    return (
+      <div
+        style={{
+          width: windowWidth,
+          height: windowHeight,
+          overflow: 'hidden',
+          position: 'relative',
+        }}
+      >
+        <SlidingPane
+          ref={el => (this.feedElement = el)}
+          key="feed"
+          background="#1B2B34"
+          expanded
+          width={windowWidth}
+          height={windowHeight}
+        >
+          {posts.map(post => (
+            <FeedCard
+              highlighted={post === highlighted}
+              key={post.date}
+              title={post.title}
+              intro={post.intro}
+              hero={post.hero}
+            />
+          ))}
+        </SlidingPane>
+        <SlidingPane
+          ref={el => (this.postElement = el)}
+          key="post"
+          background="#16232a"
+          expanded={expanded}
+          width={windowWidth}
+          height={windowHeight}
+        >
+          <Post
+            url={highlighted.link}
+            title={highlighted.title}
+            content={highlighted.description}
+          />
+        </SlidingPane>,
+      </div>
+    )
+  }
+}
 
 const mapStateToProps = state => ({
   posts: state.posts,
