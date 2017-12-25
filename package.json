@@ -1,0 +1,25 @@
+{
+  "name": "risos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src-main/index.js",
+  "scripts": {
+    "build": "sagui build",
+    "dist": "sagui dist",
+    "format": "sagui format",
+    "start": "sagui develop --port 3000",
+    "start-app": "NODE_ENV=development electron .",
+    "test": "sagui test",
+    "test:lint": "sagui test:lint",
+    "test:typecheck": "sagui test:typecheck",
+    "test:unit": "sagui test:unit --coverage",
+    "test:unit:watch": "sagui test:unit --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^1.7.10",
+    "sagui": "^11.4.3"
+  }
+}
