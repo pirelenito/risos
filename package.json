@@ -19,7 +19,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@most/create": "^2.0.1",
     "electron": "^1.7.10",
-    "sagui": "^11.4.3"
+    "feedparser": "^2.2.7",
+    "iconv": "^2.3.0",
+    "most": "^1.7.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "sagui": "^11.4.3",
+    "zlib": "^1.0.5"
   }
 }

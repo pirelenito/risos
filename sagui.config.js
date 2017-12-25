@@ -4,6 +4,11 @@
  */
 module.exports = {
   pages: ['index'],
+
+  style: {
+    cssModules: false,
+  },
+
   additionalWebpackConfig: {
     target: 'electron-renderer',
   },

@@ -1,0 +1,63 @@
+body {
+  margin: 0;
+  background: #1b2b34;
+}
+
+.post {
+  font-family: 'Helvetica Neue';
+  color: #cdd3de;
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 1.58;
+  text-rendering: optimizeLegibility;
+  letter-spacing: -0.003em;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.post figure {
+  width: 100%;
+  margin: 38px 0;
+}
+
+.post figure img {
+  display: block;
+  width: 100%;
+}
+
+.post figure figcaption {
+  font-size: 16px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.post .titleLink {
+  text-decoration: none;
+}
+
+.post .content a {
+  color: #6699cc;
+}
+
+.post ul {
+  padding-left: 33px;
+}
+
+.post p {
+  margin: 38px 0;
+}
+
+.post h1 {
+  font-size: 42px;
+  color: #fac863;
+}
+
+.post h2,
+h3,
+h4,
+h5 {
+  margin-bottom: 0px;
+  margin-top: 56px;
+  font-size: 26px;
+  color: #fac863;
+}
