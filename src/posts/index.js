@@ -1,5 +1,8 @@
 const cheerio = require('cheerio')
 
+/**
+ * Fixtures to develop the UI
+ */
 export default [
   require('./Fri Dec 22 2017 04:39:51 GMT+0100 (CET).json'),
   require('./Fri Dec 22 2017 22:43:51 GMT+0100 (CET).json'),
